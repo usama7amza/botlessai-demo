@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="BotLessAI يحول واتساب العيادة إلى موظف استقبال يعمل على مدار الساعة ويجمع طلبات الحجز للمراجعة.">
+  <title>BotLessAI | استقبال واتساب للعيادات</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav wrap">
+    <a class="brand" href="#top" aria-label="BotLessAI الرئيسية"><span>B</span>BotLessAI</a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="#how">كيف يعمل؟</a>
+      <a href="#demo">جرّب المحادثة</a>
+      <a class="nav-cta" href="#contact">اطلب تجربة</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">استقبال واتساب مصمم للعيادات</p>
+        <h1>كل رسالة تتحول إلى<br><em>فرصة حجز.</em></h1>
+        <p class="lead">يرد على أسئلة المرضى، يجمع تفاصيل الموعد، ويترك قرار التأكيد لموظف العيادة—بأسلوب طبيعي وعلى مدار الساعة.</p>
+        <div class="actions">
+          <a class="button primary" href="#demo">جرّب الديمو</a>
+          <a class="button secondary" href="#contact">اطلب تجربة لعيادتك</a>
+        </div>
+        <div class="proof" aria-label="خصائص المنتج">
+          <span>عربي وإنجليزي</span><span>مراجعة بشرية</span><span>مخصص لكل عيادة</span>
+        </div>
+      </div>
+      <div class="phone" aria-label="مثال محادثة واتساب">
+        <div class="phone-top"><span class="avatar">W</span><div><strong>استقبال العيادة</strong><small>متصل الآن</small></div><i></i></div>
+        <div class="chat">
+          <p class="bubble incoming">السلام عليكم، أبي أحجز موعد تنظيف أسنان.<time>10:31</time></p>
+          <p class="bubble outgoing">وعليكم السلام، حياك الله 👋 أكيد نقدر نساعدك. ممكن أعرف اسمك الكامل ورقم هاتفك، وأي يوم ووقت يناسبك؟<time>10:31 ✓✓</time></p>
+          <p class="bubble incoming">عبدالله سالم، باچر الساعة ٦ مساءً.<time>10:32</time></p>
+          <p class="bubble outgoing accent">تم تأكيد حجزك ✅<br><br><strong>رقم الحجز:</strong> 1042<br><strong>الاسم:</strong> عبدالله سالم<br><strong>الخدمة:</strong> تنظيف الأسنان<br><strong>الموعد:</strong> الاثنين ١٠ أغسطس، الساعة ٦ مساءً<br><br>ننتظرك بالسلامة.<time>10:34 ✓✓</time></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="wrap metric-grid">
+        <article><strong>24/7</strong><span>رد على استفسارات المرضى</span></article>
+        <article><strong>دقائق</strong><span>بدل انتظار الرد اليدوي</span></article>
+        <article><strong>قرار بشري</strong><span>قبل تأكيد أي موعد</span></article>
+      </div>
+    </section>
+
+    <section id="how" class="section wrap">
+      <div class="section-head"><p class="eyebrow">من أول رسالة إلى الحجز</p><h2>بسيط للمريض.<br>منظم للعيادة.</h2></div>
+      <div class="steps">
+        <article><b>01</b><h3>يرد فورًا</h3><p>يوضح للعميل الخدمات والأسعار والدوام حسب معلومات العيادة المعتمدة.</p></article>
+        <article><b>02</b><h3>يجمع الطلب</h3><p>يحصل على الاسم والهاتف والخدمة والتاريخ والوقت بطريقة محادثة طبيعية.</p></article>
+        <article><b>03</b><h3>الموظف يراجع</h3><p>يظهر الطلب في لوحة واضحة، والموظف يؤكد أو يرفض بضغطة واحدة.</p></article>
+        <article><b>04</b><h3>العميل يعرف القرار</h3><p>يصل التأكيد أو الاعتذار إلى العميل مباشرة داخل نفس محادثة واتساب.</p></article>
+      </div>
+    </section>
+
+    <section id="demo" class="section demo-section">
+      <div class="wrap demo-grid">
+        <div>
+          <p class="eyebrow">ديمو تفاعلي</p>
+          <h2>اختبر طريقة الرد</h2>
+          <p class="lead compact">اختر سؤالًا شائعًا وشاهد كيف يتعامل معه موظف الاستقبال.</p>
+          <div class="demo-prompts" role="group" aria-label="أسئلة الديمو">
+            <button data-demo="services">شنو الخدمات المتوفرة؟</button>
+            <button data-demo="ortho">شنو أنواع التقويم؟</button>
+            <button data-demo="hours">متى دوام العيادة؟</button>
+            <button data-demo="booking">أبي أحجز موعد</button>
+          </div>
+        </div>
+        <div class="demo-card" aria-live="polite">
+          <div class="demo-status"><span></span>استقبال العيادة</div>
+          <div id="demoConversation" class="demo-conversation">
+            <p class="empty-chat">اختر سؤالًا لبدء المحادثة</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap benefits">
+      <div class="section-head"><p class="eyebrow">مصمم للعمل الحقيقي</p><h2>مش مجرد ردود جاهزة</h2></div>
+      <div class="benefit-grid">
+        <article><span>✦</span><h3>يعرف عيادتك</h3><p>الخدمات والأسعار والسياسات وساعات العمل بصياغة خاصة بكل عيادة.</p></article>
+        <article><span>⌁</span><h3>يفهم اللهجة</h3><p>محادثة عربية طبيعية مع دعم الإنجليزية والتعبيرات الخليجية الشائعة.</p></article>
+        <article><span>✓</span><h3>القرار عند فريقك</h3><p>لا يؤكد توفر موعد من نفسه؛ الموظف يراجع الطلب قبل إرسال التأكيد.</p></article>
+      </div>
+    </section>
+
+    <section id="contact" class="cta wrap">
+      <div><p class="eyebrow">تجربة مخصصة لعيادتك</p><h2>شاهد النظام يعمل<br>ببيانات عيادتك.</h2></div>
+      <div class="cta-copy"><p>جلسة Demo قصيرة بدون التزام. نجهز الخدمات والأسئلة الشائعة ونريك رحلة الحجز كاملة.</p><a class="button light" href="https://wa.me/96567795155?text=مرحبًا،%20أرغب%20في%20تجربة%20BotLessAI%20لعيادتي" target="_blank" rel="noreferrer">احجز عرض Demo عبر واتساب</a><small>تواصل معنا على 00965 6779 5155</small></div>
+    </section>
+  </main>
+
+  <footer class="wrap"><a class="brand" href="#top"><span>B</span>BotLessAI</a><p>استقبال أذكى. حجوزات أوضح.</p><small>© 2026 BotLessAI</small></footer>
+  <script src="app.js" defer></script>
+</body>
+</html>
