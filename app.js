@@ -207,6 +207,11 @@ async function playPhoneConversation(){
   phoneConversation.append(hint,choices);
   phoneConversation.scrollTo({top:phoneConversation.scrollHeight,behavior:'smooth'});
   phoneReplay.disabled=false;
+  window.setTimeout(()=>{
+    if(run===phoneRun&&!choices.dataset.chosen){
+      completePhoneBooking(run,'٦:٣٠ م',choices,hint);
+    }
+  },2200);
 }
 
 async function completePhoneBooking(run,time,choices,hint){
