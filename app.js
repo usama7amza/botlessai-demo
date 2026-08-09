@@ -14,14 +14,50 @@ document.querySelectorAll('[data-demo]').forEach(button=>button.addEventListener
 
 const sectionLinks=[...document.querySelectorAll('.nav nav a[href^="#"]')];
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let scrollAnimation;
+
+function animateToSection(section){
+  const start=window.scrollY;
+  const navOffset=(document.querySelector('.nav')?.offsetHeight||88)+30;
+  const target=Math.max(0,section.getBoundingClientRect().top+start-navOffset);
+  const distance=target-start;
+  const duration=Math.min(1050,Math.max(480,Math.abs(distance)*.42));
+
+  if(reducedMotion){
+    window.scrollTo(0,target);
+    return;
+  }
+
+  cancelAnimationFrame(scrollAnimation);
+  const startedAt=performance.now();
+  const ease=t=>1-Math.pow(1-t,4);
+
+  const step=now=>{
+    const progress=Math.min(1,(now-startedAt)/duration);
+    window.scrollTo(0,start+distance*ease(progress));
+    if(progress<1){
+      scrollAnimation=requestAnimationFrame(step);
+      return;
+    }
+    section.classList.remove('section-arrival');
+    void section.offsetWidth;
+    section.classList.add('section-arrival');
+    window.setTimeout(()=>section.classList.remove('section-arrival'),600);
+  };
+  scrollAnimation=requestAnimationFrame(step);
+}
 
 sectionLinks.forEach(link=>link.addEventListener('click',event=>{
   const section=document.querySelector(link.getAttribute('href'));
   if(!section)return;
   event.preventDefault();
-  section.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'start'});
+  animateToSection(section);
   history.replaceState(null,'',link.getAttribute('href'));
 }));
+
+['wheel','touchstart'].forEach(eventName=>window.addEventListener(eventName,()=>{
+  cancelAnimationFrame(scrollAnimation);
+},{passive:true}));
 
 const observedSections=sectionLinks
   .map(link=>document.querySelector(link.getAttribute('href')))

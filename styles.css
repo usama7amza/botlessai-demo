@@ -51,9 +51,12 @@ body{background:radial-gradient(circle at 88% 5%,rgba(96,71,255,.18),transparent
 @media(max-width:560px){.iphone-screen .chat{height:465px}.iphone-screen .chat .bubble{font-size:10.2px}}
 
 /* Keep the main navigation visible while scrolling. */
-.nav{position:sticky;top:12px;padding-inline:22px;background:rgba(10,14,30,.88);border:1px solid rgba(255,255,255,.09);border-radius:18px;box-shadow:0 14px 38px rgba(0,0,0,.2);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.nav{position:fixed;top:12px;left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 40px));padding-inline:22px;background:rgba(10,14,30,.88);border:1px solid rgba(255,255,255,.09);border-radius:18px;box-shadow:0 14px 38px rgba(0,0,0,.2);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.nav+main{padding-top:100px}
 .nav nav a{position:relative}.nav nav a:not(.nav-cta):after{content:"";position:absolute;right:0;bottom:-8px;width:100%;height:2px;border-radius:2px;background:var(--cyan);transform:scaleX(0);transition:transform .25s ease}.nav nav a.active{color:var(--cyan)}.nav nav a.active:after{transform:scaleX(1)}
 main section[id]{scroll-margin-top:118px}
+@keyframes section-arrival{0%{opacity:.72;transform:translateY(18px)}100%{opacity:1;transform:translateY(0)}}
+main section.section-arrival>.wrap,main section.section-arrival.wrap{animation:section-arrival .55s cubic-bezier(.22,1,.36,1)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.nav nav a:after{transition:none!important}}
 
 /* Dashboard showcase */
