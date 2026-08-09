@@ -1,13 +1,13 @@
 const conversations={
-  services:{question:'شنو الخدمات المتوفرة؟',answer:'حياك الله. نقدر نعرض لك خدمات العيادة المعتمدة ونساعدك في طلب الموعد المناسب. أي خدمة حاب تستفسر عنها؟'},
-  ortho:{question:'شنو أنواع التقويم؟',answer:'خدمة تقويم الأسنان متوفرة. النوع الأنسب يتحدد بعد تقييم الطبيب للحالة. تبي نساعدك في طلب موعد تقييم؟'},
-  hours:{question:'متى دوام العيادة؟',answer:'من السبت إلى الأربعاء من ٩ صباحًا إلى ١١ مساءً، والخميس من ١١ صباحًا إلى ٦ مساءً، والجمعة مغلق.'},
-  booking:{question:'أبي أحجز موعد',answer:'حياك الله. ممكن أعرف اسمك الكامل، رقم هاتفك، الخدمة المطلوبة، واليوم والوقت المناسب لك؟'}
+  services:[['user','شنو الخدمات المتوفرة؟'],['answer','الخدمات المتاحة: زراعة الأسنان، تجميل الأسنان، علاج العصب، تبييض الأسنان، تنظيف وتلميع الأسنان، الأشعة، التقويم، والخلع. أي خدمة تناسبك؟']],
+  ortho:[['user','شنو أنواع التقويم؟'],['answer','خدمة تقويم الأسنان متوفرة. النوع الأنسب يتحدد بعد تقييم الطبيب للحالة. تبي أساعدك في طلب موعد تقييم؟']],
+  hours:[['user','متى دوام العيادة؟'],['answer','من السبت إلى الأربعاء من ١٠:٠٠ ص إلى ٩:٠٠ م، والخميس من ١٠:٠٠ ص إلى ٦:٠٠ م، والجمعة مغلق.']],
+  booking:[['user','أبي أحجز موعد'],['answer','حياك الله 👋 ممكن أعرف اسمك الكامل؟'],['user','عبدالله سالم'],['answer','شكرًا عبدالله. ممكن رقم هاتفك؟'],['user','96550000000'],['answer','اختار الخدمة المطلوبة: تنظيف، تبييض، تقويم، زراعة، علاج عصب، أشعة أو خلع.']]
 };
 const output=document.querySelector('#demoConversation');
 document.querySelectorAll('[data-demo]').forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('[data-demo]').forEach(item=>item.classList.remove('active'));
   button.classList.add('active');
-  const item=conversations[button.dataset.demo];
-  output.innerHTML=`<p class="user">${item.question}</p><p class="answer">${item.answer}</p>`;
+  const messages=conversations[button.dataset.demo];
+  output.innerHTML=messages.map(([role,text])=>`<p class="${role}">${text}</p>`).join('');
 }));
