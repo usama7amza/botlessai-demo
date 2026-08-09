@@ -11,3 +11,34 @@ document.querySelectorAll('[data-demo]').forEach(button=>button.addEventListener
   const messages=conversations[button.dataset.demo];
   output.innerHTML=messages.map(([role,text])=>`<p class="${role}">${text}</p>`).join('');
 }));
+
+const sectionLinks=[...document.querySelectorAll('.nav nav a[href^="#"]')];
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+sectionLinks.forEach(link=>link.addEventListener('click',event=>{
+  const section=document.querySelector(link.getAttribute('href'));
+  if(!section)return;
+  event.preventDefault();
+  section.scrollIntoView({behavior:reducedMotion?'auto':'smooth',block:'start'});
+  history.replaceState(null,'',link.getAttribute('href'));
+}));
+
+const observedSections=sectionLinks
+  .map(link=>document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if('IntersectionObserver' in window){
+  const observer=new IntersectionObserver(entries=>{
+    const visible=entries
+      .filter(entry=>entry.isIntersecting)
+      .sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible)return;
+    sectionLinks.forEach(link=>{
+      const active=link.getAttribute('href')===`#${visible.target.id}`;
+      link.classList.toggle('active',active);
+      if(active)link.setAttribute('aria-current','location');
+      else link.removeAttribute('aria-current');
+    });
+  },{rootMargin:'-22% 0px -58% 0px',threshold:[0,.15,.4,.7]});
+  observedSections.forEach(section=>observer.observe(section));
+}
