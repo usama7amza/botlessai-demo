@@ -18,10 +18,11 @@ let scrollAnimation;
 
 function animateToSection(section){
   const start=window.scrollY;
-  const navOffset=(document.querySelector('.nav')?.offsetHeight||88)+30;
+  const nav=document.querySelector('.nav');
+  const navOffset=(nav?.offsetHeight||88)+30;
   const target=Math.max(0,section.getBoundingClientRect().top+start-navOffset);
   const distance=target-start;
-  const duration=Math.min(1050,Math.max(480,Math.abs(distance)*.42));
+  const duration=Math.min(1600,Math.max(900,Math.abs(distance)*.65));
 
   if(reducedMotion){
     window.scrollTo(0,target);
@@ -30,10 +31,12 @@ function animateToSection(section){
 
   cancelAnimationFrame(scrollAnimation);
   const startedAt=performance.now();
-  const ease=t=>1-Math.pow(1-t,4);
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  nav?.classList.add('is-scrolling');
 
   const step=now=>{
     const progress=Math.min(1,(now-startedAt)/duration);
+    nav?.style.setProperty('--scroll-progress',progress.toFixed(3));
     window.scrollTo(0,start+distance*ease(progress));
     if(progress<1){
       scrollAnimation=requestAnimationFrame(step);
@@ -42,7 +45,9 @@ function animateToSection(section){
     section.classList.remove('section-arrival');
     void section.offsetWidth;
     section.classList.add('section-arrival');
-    window.setTimeout(()=>section.classList.remove('section-arrival'),600);
+    window.setTimeout(()=>section.classList.remove('section-arrival'),850);
+    nav?.classList.remove('is-scrolling');
+    nav?.style.setProperty('--scroll-progress','0');
   };
   scrollAnimation=requestAnimationFrame(step);
 }
@@ -57,6 +62,9 @@ sectionLinks.forEach(link=>link.addEventListener('click',event=>{
 
 ['wheel','touchstart'].forEach(eventName=>window.addEventListener(eventName,()=>{
   cancelAnimationFrame(scrollAnimation);
+  const nav=document.querySelector('.nav');
+  nav?.classList.remove('is-scrolling');
+  nav?.style.setProperty('--scroll-progress','0');
 },{passive:true}));
 
 const observedSections=sectionLinks
