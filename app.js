@@ -1,15 +1,52 @@
 const conversations={
-  services:[['user','شنو الخدمات المتوفرة؟'],['answer','نوفر زراعة الأسنان، وتجميل الأسنان، وعلاج العصب، والتبييض، والتنظيف والتلميع، والأشعة، والتقويم، والخلع. أي خدمة حاب تستفسر عنها؟']],
-  ortho:[['user','شنو أنواع التقويم؟'],['answer','خدمة تقويم الأسنان متوفرة، والطبيب يحدد النوع الأنسب بعد تقييم الحالة. تحب أساعدك في طلب موعد للتقييم؟']],
-  hours:[['user','متى دوام العيادة؟'],['answer','من السبت إلى الأربعاء من ١٠:٠٠ ص إلى ٩:٠٠ م، والخميس من ١٠:٠٠ ص إلى ٦:٠٠ م، والجمعة مغلق.']],
-  booking:[['user','أبي أحجز موعد'],['answer','حياك الله 👋 ممكن أعرف اسمك الكامل؟'],['user','عبدالله سالم'],['answer','شكرًا عبدالله. ممكن رقم هاتفك؟'],['user','96550000000'],['answer','اختر الخدمة المطلوبة: تنظيف، تبييض، تقويم، زراعة، علاج عصب، أشعة أو خلع.']]
+  smartBooking:[['user','أبي تنظيف اليوم بعد ٦، وكم السعر؟'],['answer','حياك الله 👋 فهمت إنك تبي موعد تنظيف اليوم بعد الساعة ٦، وتبي تعرف السعر.'],['answer','سعر تنظيف وتلميع الأسنان يبدأ من ٢٥ د.ك، والمدة نحو ٣٠ دقيقة.'],['answer','الأوقات المتاحة بعد ٦ اليوم: ٦:٣٠ م و٨:٠٠ م. أي وقت يناسبك؟']],
+  urgent:[['user','عندي ألم قوي من أمس، شنو أسوي؟'],['answer','سلامتك وما تشوف شر. الألم القوي يحتاج تقييم طبيب بأقرب وقت، خصوصًا إذا كان معه تورم أو حرارة.'],['answer','أقدر أساعدك بطلب أقرب موعد طارئ. هل يوجد تورم في الوجه أو صعوبة في البلع أو التنفس؟']],
+  insurance:[['user','تقبلون التأمين؟'],['answer','يعتمد ذلك على شركة التأمين ونوع التغطية. اكتب لي اسم شركة التأمين، وسأضيفه إلى الطلب ليتحقق فريق الاستقبال من التغطية قبل الموعد.']],
+  reschedule:[['user','أبي أغيّر موعدي'],['answer','أكيد. أرسل رقم الهاتف المستخدم في الحجز، وسأعرض لك الموعد المسجل وخيارات التعديل المتاحة.'],['user','5000 0000'],['answer','وجدت موعد تنظيف غدًا الساعة ٦:٠٠ م. هل تفضل تغيير اليوم أم الوقت؟']],
+  location:[['user','وين موقعكم ومتى تسكرون اليوم؟'],['answer','موقعنا في السالمية، شارع البحرين. نغلق اليوم الساعة ٩:٠٠ م.'],['answer','تبي أرسل لك رابط الموقع على الخريطة أو أساعدك في حجز موعد قبل الإغلاق؟']],
+  services:[['user','أسناني لونها متغير وما أدري شنو الخدمة المناسبة'],['answer','أفهم من كلامك إنك تبحث عن تحسين لون الأسنان. قد يناسبك التبييض أو التنظيف، لكن الاختيار يعتمد على سبب تغير اللون وحالة الأسنان.'],['answer','أقدر أساعدك في طلب موعد تقييم، والطبيب يحدد الخيار الأنسب بعد الفحص. هل التغير في سن واحد أم في جميع الأسنان؟']],
+  booking:[['user','أبي أحجز موعد'],['answer','حياك الله 👋 أكيد أساعدك. ممكن أعرف اسمك الكامل؟'],['user','عبدالله سالم'],['answer','شكرًا عبدالله. شنو الخدمة اللي تبي تحجز لها؟']]
 };
 const output=document.querySelector('#demoConversation');
-document.querySelectorAll('[data-demo]').forEach(button=>button.addEventListener('click',()=>{
+const demoButtons=[...document.querySelectorAll('[data-demo]')];
+let conversationRun=0;
+const wait=duration=>new Promise(resolve=>window.setTimeout(resolve,duration));
+const messageTime=()=>new Intl.DateTimeFormat('ar-KW',{hour:'numeric',minute:'2-digit'}).format(new Date());
+
+async function playConversation(messages){
+  const run=++conversationRun;
+  output.innerHTML='';
+  demoButtons.forEach(button=>button.disabled=true);
+
+  for(const [role,text] of messages){
+    if(run!==conversationRun)return;
+    if(role==='answer'){
+      const typing=document.createElement('div');
+      typing.className='typing';
+      typing.innerHTML='<i></i><i></i><i></i><small>يكتب الآن</small>';
+      output.append(typing);
+      output.scrollTo({top:output.scrollHeight,behavior:'smooth'});
+      await wait(Math.min(1250,650+text.length*7));
+      if(run!==conversationRun)return;
+      typing.remove();
+    }else{
+      await wait(220);
+    }
+
+    const message=document.createElement('p');
+    message.className=role;
+    message.innerHTML=`<span>${text}</span><time>${messageTime()}</time>`;
+    output.append(message);
+    output.scrollTo({top:output.scrollHeight,behavior:'smooth'});
+    await wait(role==='user'?420:520);
+  }
+  demoButtons.forEach(button=>button.disabled=false);
+}
+
+demoButtons.forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('[data-demo]').forEach(item=>item.classList.remove('active'));
   button.classList.add('active');
-  const messages=conversations[button.dataset.demo];
-  output.innerHTML=messages.map(([role,text])=>`<p class="${role}">${text}</p>`).join('');
+  playConversation(conversations[button.dataset.demo]);
 }));
 
 const sectionLinks=[...document.querySelectorAll('.nav nav a[href^="#"]')];
