@@ -22,7 +22,7 @@ function animateToSection(section){
   const navOffset=(nav?.offsetHeight||88)+30;
   const target=Math.max(0,section.getBoundingClientRect().top+start-navOffset);
   const distance=target-start;
-  const duration=Math.min(1600,Math.max(900,Math.abs(distance)*.65));
+  const duration=Math.min(750,Math.max(400,Math.abs(distance)*.28));
 
   if(reducedMotion){
     window.scrollTo(0,target);
