@@ -151,3 +151,81 @@ if(!reducedMotion&&'IntersectionObserver' in window){
 }else{
   revealTargets.forEach(target=>target.classList.add('is-visible'));
 }
+
+const phoneConversation=document.querySelector('#phoneConversation');
+const phoneReplay=document.querySelector('#phoneReplay');
+const phonePresence=document.querySelector('#phonePresence');
+let phoneRun=0;
+const phoneWait=duration=>new Promise(resolve=>window.setTimeout(resolve,duration));
+
+function phoneMessage(role,text,extraClass=''){
+  const message=document.createElement('p');
+  message.className=`bubble ${role} ${extraClass}`.trim();
+  message.innerHTML=`${text}<time>${messageTime()}${role==='outgoing'?' ✓✓':''}</time>`;
+  phoneConversation.append(message);
+  phoneConversation.scrollTo({top:phoneConversation.scrollHeight,behavior:'smooth'});
+}
+
+async function phoneReply(run,text,extraClass=''){
+  if(run!==phoneRun)return false;
+  phonePresence.textContent='يكتب الآن...';
+  const typing=document.createElement('div');
+  typing.className='phone-typing';
+  typing.innerHTML='<i></i><i></i><i></i>';
+  phoneConversation.append(typing);
+  phoneConversation.scrollTo({top:phoneConversation.scrollHeight,behavior:'smooth'});
+  await phoneWait(Math.min(1050,520+text.length*8));
+  if(run!==phoneRun)return false;
+  typing.remove();
+  phonePresence.textContent='متصل الآن';
+  phoneMessage('outgoing',text,extraClass);
+  await phoneWait(480);
+  return run===phoneRun;
+}
+
+async function playPhoneConversation(){
+  const run=++phoneRun;
+  phoneConversation.innerHTML='<span class="chat-date">اليوم</span>';
+  phoneReplay.disabled=true;
+  phoneMessage('incoming','السلام عليكم، عندي مناسبة الخميس وأبي تنظيف وتبييض. في موعد باچر بعد ٦؟');
+  await phoneWait(450);
+  if(!await phoneReply(run,'وعليكم السلام، حياك الله 👋 فهمت إنك تبي تنظيفًا وتقييمًا للتبييض قبل مناسبتك، وتفضل باچر بعد الساعة ٦.'))return;
+  if(!await phoneReply(run,'عندنا موعدان متاحان. اختر الوقت اللي يناسبك.'))return;
+
+  const hint=document.createElement('p');
+  hint.className='phone-choice-hint';
+  hint.textContent='اضغط على الوقت المناسب';
+  const choices=document.createElement('div');
+  choices.className='time-options';
+  ['٦:٣٠ م','٨:٠٠ م'].forEach(time=>{
+    const button=document.createElement('button');
+    button.type='button';
+    button.textContent=time;
+    button.addEventListener('click',()=>completePhoneBooking(run,time,choices,hint));
+    choices.append(button);
+  });
+  phoneConversation.append(hint,choices);
+  phoneConversation.scrollTo({top:phoneConversation.scrollHeight,behavior:'smooth'});
+  phoneReplay.disabled=false;
+}
+
+async function completePhoneBooking(run,time,choices,hint){
+  if(run!==phoneRun||choices.dataset.chosen)return;
+  choices.dataset.chosen=time;
+  choices.querySelectorAll('button').forEach(button=>{
+    button.disabled=true;
+    button.classList.toggle('selected',button.textContent===time);
+  });
+  hint.textContent=`تم اختيار ${time}`;
+  await phoneWait(350);
+  phoneMessage('incoming',`يناسبني ${time}.`);
+  await phoneWait(380);
+  if(!await phoneReply(run,'ممتاز. أرسل لي الاسم الكامل ورقم الهاتف لإتمام الحجز.'))return;
+  phoneMessage('incoming','عبدالله سالم · 5000 0000');
+  await phoneWait(420);
+  await phoneReply(run,`✅ <strong>تم تأكيد حجزك</strong><br><b>الخدمة:</b> تنظيف وتقييم تبييض<br><b>الموعد:</b> باچر، الساعة ${time}<br>بنذكّرك قبل الموعد بـ٣ ساعات. حياك الله.`,'accent phone-confirmation');
+  phoneReplay.disabled=false;
+}
+
+phoneReplay?.addEventListener('click',playPhoneConversation);
+if(phoneConversation)window.setTimeout(playPhoneConversation,650);

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="يحوّل BotLessAI واتساب العيادة إلى موظف استقبال ذكي يعمل على مدار الساعة، ويجمع طلبات الحجز لتتم مراجعتها من فريقك.">
   <title>BotLessAI | استقبال واتساب للعيادات</title>
-  <link rel="stylesheet" href="styles.css?v=sample9">
+  <link rel="stylesheet" href="styles.css?v=phonechat10">
 </head>
 <body>
   <header class="nav wrap">
@@ -39,19 +39,9 @@
           <i class="side-button action-button"></i><i class="side-button volume-up"></i><i class="side-button volume-down"></i><i class="side-button power-button"></i>
           <div class="iphone-screen">
             <div class="device-bar"><span>١٠:٣١</span><i class="dynamic-island"></i><div class="ios-signals">● ◔ ⌁</div></div>
-            <div class="phone-top"><button aria-label="رجوع">‹</button><span class="avatar">ع</span><div><strong>عيادتك</strong><small>متصل الآن</small></div><span class="phone-actions">⌕ ⋮</span></div>
-            <div class="chat">
+            <div class="phone-top"><button aria-label="رجوع">‹</button><span class="avatar">ع</span><div><strong>عيادتك</strong><small id="phonePresence">متصل الآن</small></div><button id="phoneReplay" class="phone-replay" aria-label="إعادة المحادثة" title="إعادة المحادثة">↻</button></div>
+            <div id="phoneConversation" class="chat" aria-live="polite">
               <span class="chat-date">اليوم</span>
-              <p class="bubble incoming">أبي أحجز موعد تنظيف.<time>10:31</time></p>
-              <p class="bubble outgoing">حياك الله 👋 ممكن اسمك الكامل؟<time>10:31 ✓✓</time></p>
-              <p class="bubble incoming">عبدالله سالم.<time>10:32</time></p>
-              <p class="bubble outgoing">ممكن رقم هاتفك؟<time>10:32 ✓✓</time></p>
-              <p class="bubble incoming">5000 0000<time>10:33</time></p>
-              <p class="bubble outgoing">أي يوم يناسبك؟<time>10:33 ✓✓</time></p>
-              <p class="bubble incoming">غدًا.<time>10:33</time></p>
-              <p class="bubble outgoing">اختر الوقت المناسب.</p>
-              <div class="time-options"><span>٤:٠٠ م</span><span class="selected">٦:٠٠ م</span><span>٧:٠٠ م</span></div>
-              <p class="bubble outgoing accent">✅ <strong>تم تأكيد حجزك بنجاح</strong><br><b>الاسم:</b> عبدالله سالم<br><b>الخدمة:</b> تنظيف الأسنان<br><b>الموعد:</b> غدًا، الساعة ٦:٠٠ م<br>ننتظرك في الموعد، وحياك الله.<time>10:34 ✓✓</time></p>
             </div>
             <div class="message-dock"><button>＋</button><div><span>اكتب رسالة</span><i>☺</i></div><button class="mic">●</button></div>
             <div class="home-indicator"></div>
@@ -159,6 +149,6 @@
   </main>
 
   <footer class="wrap"><a class="brand" href="#top"><strong>BotLess<span>AI</span></strong></a><p>استقبال أذكى. حجوزات أوضح.</p><small>© 2026 BotLessAI</small></footer>
-  <script src="app.js?v=chat8" defer></script>
+  <script src="app.js?v=phonechat10" defer></script>
 </body>
 </html>
