@@ -86,3 +86,31 @@ if('IntersectionObserver' in window){
   },{rootMargin:'-22% 0px -58% 0px',threshold:[0,.15,.4,.7]});
   observedSections.forEach(section=>observer.observe(section));
 }
+
+const revealGroups=[...document.querySelectorAll('main section:not(.hero)')];
+const revealTargets=[];
+
+revealGroups.forEach(section=>{
+  const targets=[...section.querySelectorAll(
+    '.section-head, .metric-grid article, .steps article, .benefit-grid article, .dashboard-window, .dashboard-caption, .demo-grid>div, .cta>div'
+  )];
+  targets.forEach((target,index)=>{
+    target.dataset.reveal='';
+    target.style.setProperty('--reveal-delay',`${Math.min(index,5)*90}ms`);
+    revealTargets.push(target);
+  });
+});
+
+if(!reducedMotion&&'IntersectionObserver' in window){
+  document.body.classList.add('reveal-ready');
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    });
+  },{rootMargin:'0px 0px -12% 0px',threshold:.12});
+  revealTargets.forEach(target=>revealObserver.observe(target));
+}else{
+  revealTargets.forEach(target=>target.classList.add('is-visible'));
+}
