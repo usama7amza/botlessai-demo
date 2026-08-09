@@ -46,3 +46,6 @@ body{background:radial-gradient(circle at 88% 5%,rgba(96,71,255,.18),transparent
 @media(max-width:560px){.iphone{width:min(310px,calc(100vw - 38px));padding:6px;border-radius:45px}.iphone-screen{border-radius:38px}.chat{height:420px}.bubble{font-size:11px}.phone-stage:before{inset:6% 3%}}
 
 .iphone-screen .chat .bubble,.iphone-screen .chat .bubble strong{color:#17201d!important}.iphone-screen .chat .bubble time{color:#66736d!important}.iphone-screen .chat-date{color:#4e5b56!important;background:rgba(255,255,255,.88)}
+
+.iphone-screen .chat{height:480px;gap:5px;padding-block:10px}.iphone-screen .chat .bubble{padding:5px 8px 3px;font-size:10.5px;line-height:1.42}.iphone-screen .chat .bubble time{font-size:8px}.time-options{align-self:flex-end;display:flex;gap:4px;direction:rtl}.time-options span{padding:4px 7px;border:1px solid #c8d6cf;border-radius:7px;background:#fff;color:#26332e;font-size:9px}.time-options .selected{border-color:#00a884;background:#00a884;color:#fff}.iphone-screen .chat .bubble b{color:#087f65}
+@media(max-width:560px){.iphone-screen .chat{height:465px}.iphone-screen .chat .bubble{font-size:10.2px}}
