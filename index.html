@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="يحوّل BotLessAI واتساب العيادة إلى موظف استقبال ذكي يعمل على مدار الساعة، ويجمع طلبات الحجز لتتم مراجعتها من فريقك.">
   <title>BotLessAI | استقبال واتساب للعيادات</title>
-  <link rel="stylesheet" href="styles.css?v=phonechat10">
+  <link rel="stylesheet" href="styles.css?v=vertical-demos1">
 </head>
 <body>
   <header class="nav wrap">
     <a class="brand" href="#top" aria-label="BotLessAI الرئيسية"><strong>BotLess<span>AI</span></strong></a>
+    <div class="vertical-switch" aria-label="اختيار العرض التجريبي">
+      <a data-vertical="clinic" href="?demo=clinic">العيادات</a>
+      <a data-vertical="salon" href="?demo=salon">الصالونات</a>
+    </div>
     <nav aria-label="التنقل الرئيسي">
       <a href="#how">كيف يعمل؟</a>
       <a href="#features">المزايا</a>
@@ -39,7 +43,7 @@
           <i class="side-button action-button"></i><i class="side-button volume-up"></i><i class="side-button volume-down"></i><i class="side-button power-button"></i>
           <div class="iphone-screen">
             <div class="device-bar"><span>١٠:٣١</span><i class="dynamic-island"></i><div class="ios-signals">● ◔ ⌁</div></div>
-            <div class="phone-top"><button aria-label="رجوع">‹</button><span class="avatar">ع</span><div><strong>عيادتك</strong><small id="phonePresence">متصل الآن</small></div><button id="phoneReplay" class="phone-replay" aria-label="إعادة المحادثة" title="إعادة المحادثة">↻</button></div>
+            <div class="phone-top"><button aria-label="رجوع">‹</button><span id="phoneAvatar" class="avatar">ع</span><div><strong id="phoneBusinessName">عيادة BotLess التجريبية</strong><small id="phonePresence">متصل الآن</small></div><button id="phoneReplay" class="phone-replay" aria-label="إعادة المحادثة" title="إعادة المحادثة">↻</button></div>
             <div id="phoneConversation" class="chat" aria-live="polite">
               <span class="chat-date">اليوم</span>
             </div>
@@ -150,6 +154,6 @@
   </main>
 
   <footer class="wrap"><a class="brand" href="#top"><strong>BotLess<span>AI</span></strong></a><p>استقبال أذكى. حجوزات أوضح.</p><small>© 2026 BotLessAI</small></footer>
-  <script src="app.js?v=phonechat11" defer></script>
+  <script src="app.js?v=vertical-demos1" defer></script>
 </body>
 </html>

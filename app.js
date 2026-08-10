@@ -1,12 +1,50 @@
-const conversations={
+const vertical=new URLSearchParams(location.search).get('demo')==='salon'?'salon':'clinic';
+document.documentElement.dataset.vertical=vertical;
+document.querySelectorAll('[data-vertical]').forEach(link=>link.classList.toggle('active',link.dataset.vertical===vertical));
+
+const clinicConversations={
   smartBooking:[['user','أبي تنظيف اليوم بعد ٦، وكم السعر؟'],['answer','حياك الله 👋 فهمت إنك تبي موعد تنظيف اليوم بعد الساعة ٦، وتبي تعرف السعر.'],['answer','سعر تنظيف وتلميع الأسنان يبدأ من ٢٥ د.ك، والمدة نحو ٣٠ دقيقة.'],['answer','الأوقات المتاحة بعد ٦ اليوم: ٦:٣٠ م و٨:٠٠ م. أي وقت يناسبك؟']],
-  urgent:[['user','عندي ألم قوي من أمس، شنو أسوي؟'],['answer','سلامتك وما تشوف شر. الألم القوي يحتاج تقييم طبيب بأقرب وقت، خصوصًا إذا كان معه تورم أو حرارة.'],['answer','أقدر أساعدك بطلب أقرب موعد طارئ. هل يوجد تورم في الوجه أو صعوبة في البلع أو التنفس؟']],
-  insurance:[['user','تقبلون التأمين؟'],['answer','يعتمد ذلك على شركة التأمين ونوع التغطية. اكتب لي اسم شركة التأمين، وسأضيفه إلى الطلب ليتحقق فريق الاستقبال من التغطية قبل الموعد.']],
-  reschedule:[['user','أبي أغيّر موعدي'],['answer','أكيد. أرسل رقم الهاتف المستخدم في الحجز، وسأعرض لك الموعد المسجل وخيارات التعديل المتاحة.'],['user','5000 0000'],['answer','وجدت موعد تنظيف غدًا الساعة ٦:٠٠ م. هل تفضل تغيير اليوم أم الوقت؟']],
-  location:[['user','وين موقعكم ومتى تسكرون اليوم؟'],['answer','موقعنا في السالمية، شارع البحرين. نغلق اليوم الساعة ٩:٠٠ م.'],['answer','تبي أرسل لك رابط الموقع على الخريطة أو أساعدك في حجز موعد قبل الإغلاق؟']],
-  services:[['user','أسناني لونها متغير وما أدري شنو الخدمة المناسبة'],['answer','أفهم من كلامك إنك تبحث عن تحسين لون الأسنان. قد يناسبك التبييض أو التنظيف، لكن الاختيار يعتمد على سبب تغير اللون وحالة الأسنان.'],['answer','أقدر أساعدك في طلب موعد تقييم، والطبيب يحدد الخيار الأنسب بعد الفحص. هل التغير في سن واحد أم في جميع الأسنان؟']],
-  booking:[['user','أبي أحجز موعد'],['answer','حياك الله 👋 أكيد أساعدك. ممكن أعرف اسمك الكامل؟'],['user','عبدالله سالم'],['answer','شكرًا عبدالله. شنو الخدمة اللي تبي تحجز لها؟']]
+  urgent:[['user','عندي ألم قوي من أمس، شنو أسوي؟'],['answer','سلامتك وما تشوف شر. الألم القوي يحتاج تقييم طبيب بأقرب وقت، خصوصًا إذا كان معه تورم أو حرارة.'],['answer','أقدر أساعدك بطلب أقرب موعد. هل يوجد تورم في الوجه أو صعوبة في البلع أو التنفس؟']],
+  insurance:[['user','تقبلون التأمين؟'],['answer','يعتمد على شركة التأمين ونوع التغطية. اكتب اسم الشركة، وسأضيفه للطلب ليتحقق فريق الاستقبال.']],
+  reschedule:[['user','أبي أغيّر موعدي'],['answer','أكيد. أرسل رقم الهاتف المستخدم في الحجز، وسأعرض لك الموعد وخيارات التعديل.'],['user','5000 0000'],['answer','وجدت موعد تنظيف غدًا الساعة ٦:٠٠ م. تفضل تغيير اليوم أم الوقت؟']],
+  location:[['user','وين موقعكم ومتى تسكرون اليوم؟'],['answer','هذا عرض تجريبي؛ بيانات الموقع والدوام تُضبط حسب كل عيادة.'],['answer','أقدر أرسل رابط الموقع أو أساعدك في طلب موعد.']],
+  services:[['user','أسناني لونها متغير وما أدري شنو الخدمة المناسبة'],['answer','قد يناسبك التبييض أو التنظيف، لكن الاختيار يعتمد على التقييم.'],['answer','أقدر أساعدك في طلب موعد، والطبيب يحدد الخيار الأنسب بعد الفحص.']],
+  booking:[['user','أبي أحجز موعد'],['answer','حياك الله 👋 شنو الخدمة اللي تبي تحجز لها؟'],['user','تنظيف أسنان'],['answer','تمام. أي يوم ووقت يناسبك؟']]
 };
+const salonConversations={
+  smartBooking:[['user','أبي منيكير وبديكير باچر بعد ٦، وكم السعر؟'],['answer','حياج الله 👋 فهمت إنج تبين منيكير وبديكير باچر بعد الساعة ٦.'],['answer','الباقة التجريبية تبدأ من ٢٠ د.ك ومدتها نحو ساعة. السعر النهائي يُضبط حسب قائمة الصالون.'],['answer','المتاح ٦:٣٠ م و٨:٠٠ م. أي وقت يناسبج؟']],
+  urgent:[['user','عندي مناسبة باچر وأبي شعر ومكياج'],['answer','أبشري ✨ أقدر أبحث لج عن أقرب وقت متاح للشعر والمكياج.'],['answer','تفضلين الخدمة داخل الصالون أو بالمنزل؟']],
+  insurance:[['user','عندكم خدمة منازل؟'],['answer','نعم في هذا المثال التجريبي. أرسلي المنطقة والخدمات المطلوبة حتى نحسب التوفر ورسوم الانتقال.']],
+  reschedule:[['user','أبي أغيّر موعدي'],['answer','أكيد. أرسلي رقم الهاتف المستخدم بالحجز حتى أعرض لج الموعد وخيارات التعديل.'],['user','5000 0000'],['answer','لقيت موعد أظافر باچر الساعة ٦:٠٠ م. تبين تغيرين اليوم أو الوقت؟']],
+  location:[['user','وين موقعكم ومتى تسكرون؟'],['answer','هذا عرض تجريبي؛ الموقع والدوام يتغيران حسب بيانات الصالون.'],['answer','أقدر أرسل لج رابط الموقع أو أساعدج بالحجز.']],
+  services:[['user','شعري جاف وأبي أعرف شنو يناسبه'],['answer','أقدر أوضح لج خدمات العناية المنشورة، لكن اختيار العلاج يعتمد على تقييم خبيرة الشعر.'],['answer','تبين نحجز لج استشارة شعر أولًا؟']],
+  booking:[['user','أبي أحجز موعد'],['answer','حياج الله 👋 شنو الخدمة اللي تبينها؟'],['user','صبغة وقص'],['answer','تمام. تفضلين أي يوم ووقت؟']]
+};
+const conversations=vertical==='salon'?salonConversations:clinicConversations;
+
+if(vertical==='salon'){
+  document.title='BotLessAI | استقبال واتساب للصالونات';
+  document.querySelector('meta[name="description"]').content='موظفة استقبال ذكية لصالونات التجميل على واتساب، من الاستفسار إلى طلب الحجز.';
+  const replacements=[
+    ['العيادات','الصالونات'],['لعيادتك','لصالونك'],['عيادتك','صالونك'],['العيادة','الصالون'],['للعيادة','للصالون'],
+    ['المريض','العميلة'],['المرضى','العميلات'],['طبيب','خبيرة'],['الطبيب','الخبيرة'],['طبية','تجميلية'],
+    ['تنظيف وتلميع الأسنان','صبغة وقص شعر'],['تقييم تقويم الأسنان','مناكير وبديكير'],['تبييض الأسنان','تركيب رموش'],
+    ['عبدالله سالم','نورة سالم'],['أحمد خالد','ريم خالد'],['استقبال العيادة','استقبال الصالون'],
+    ['شنو الخدمة المناسبة لي؟','شنو الخدمة المناسبة لشعري؟'],['عندي ألم قوي، شنو أسوي؟','عندي مناسبة باچر، شنو المتاح؟'],['تقبلون التأمين؟','عندكم خدمة منازل؟'],
+    ['أبي تنظيف اليوم بعد ٦، وكم السعر؟','أبي منيكير وبديكير باچر بعد ٦'],['موظف الاستقبال','موظفة الاستقبال'],['موظف العيادة','موظفة الصالون']
+  ];
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  let node;
+  while((node=walker.nextNode())){
+    let text=node.nodeValue;
+    replacements.forEach(([from,to])=>{text=text.split(from).join(to);});
+    node.nodeValue=text;
+  }
+  const cta=document.querySelector('.cta-copy .button');
+  if(cta){cta.href='https://wa.me/96567795155?text='+encodeURIComponent('مرحبًا، أرغب في تجربة BotLessAI لصالوني');cta.textContent='احجزي عرضًا تجريبيًا عبر واتساب';}
+  document.querySelector('#phoneBusinessName').textContent='صالون BotLess التجريبي';
+  document.querySelector('#phoneAvatar').textContent='ص';
+}
 const output=document.querySelector('#demoConversation');
 const demoButtons=[...document.querySelectorAll('[data-demo]')];
 let conversationRun=0;
@@ -157,6 +195,19 @@ const phoneReplay=document.querySelector('#phoneReplay');
 const phonePresence=document.querySelector('#phonePresence');
 let phoneRun=0;
 const phoneWait=duration=>new Promise(resolve=>window.setTimeout(resolve,duration));
+const phoneScenario=vertical==='salon'?{
+  opening:'السلام عليكم، عندي مناسبة الخميس وأبي شعر ومكياج. في موعد باچر بعد ٦؟',
+  understood:'وعليكم السلام، حياج الله 👋 فهمت إنج تبين شعر ومكياج قبل مناسبتج، وتفضلين باچر بعد الساعة ٦.',
+  available:'عندنا موعدين متاحين. اختاري الوقت اللي يناسبج.',
+  choice:'يناسبني', detailsAsk:'ممتاز. أرسلي الاسم الكامل ورقم الهاتف ونوع الخدمة: بالصالون أو بالمنزل.',
+  details:'نورة سالم · 5000 0000 · داخل الصالون', service:'تسريحة ومكياج', customerWord:'حياج الله.'
+}:{
+  opening:'السلام عليكم، عندي مناسبة الخميس وأبي تنظيف وتبييض. في موعد باچر بعد ٦؟',
+  understood:'وعليكم السلام، حياك الله 👋 فهمت إنك تبي تنظيفًا وتقييمًا للتبييض قبل مناسبتك، وتفضل باچر بعد الساعة ٦.',
+  available:'عندنا موعدان متاحان. اختر الوقت اللي يناسبك.',
+  choice:'يناسبني', detailsAsk:'ممتاز. أرسل لي الاسم الكامل ورقم الهاتف لإتمام طلب الحجز.',
+  details:'عبدالله سالم · 5000 0000', service:'تنظيف وتقييم تبييض', customerWord:'حياك الله.'
+};
 
 function phoneMessage(role,text,extraClass=''){
   const message=document.createElement('p');
@@ -187,10 +238,10 @@ async function playPhoneConversation(){
   const run=++phoneRun;
   phoneConversation.innerHTML='<span class="chat-date">اليوم</span>';
   phoneReplay.disabled=true;
-  phoneMessage('incoming','السلام عليكم، عندي مناسبة الخميس وأبي تنظيف وتبييض. في موعد باچر بعد ٦؟');
+  phoneMessage('incoming',phoneScenario.opening);
   await phoneWait(450);
-  if(!await phoneReply(run,'وعليكم السلام، حياك الله 👋 فهمت إنك تبي تنظيفًا وتقييمًا للتبييض قبل مناسبتك، وتفضل باچر بعد الساعة ٦.'))return;
-  if(!await phoneReply(run,'عندنا موعدان متاحان. اختر الوقت اللي يناسبك.'))return;
+  if(!await phoneReply(run,phoneScenario.understood))return;
+  if(!await phoneReply(run,phoneScenario.available))return;
 
   const hint=document.createElement('p');
   hint.className='phone-choice-hint';
@@ -223,12 +274,12 @@ async function completePhoneBooking(run,time,choices,hint){
   });
   hint.textContent=`تم اختيار ${time}`;
   await phoneWait(350);
-  phoneMessage('incoming',`يناسبني ${time}.`);
+  phoneMessage('incoming',`${phoneScenario.choice} ${time}.`);
   await phoneWait(380);
-  if(!await phoneReply(run,'ممتاز. أرسل لي الاسم الكامل ورقم الهاتف لإتمام الحجز.'))return;
-  phoneMessage('incoming','عبدالله سالم · 5000 0000');
+  if(!await phoneReply(run,phoneScenario.detailsAsk))return;
+  phoneMessage('incoming',phoneScenario.details);
   await phoneWait(420);
-  await phoneReply(run,`✅ <strong>تم تأكيد حجزك</strong><br><b>الخدمة:</b> تنظيف وتقييم تبييض<br><b>الموعد:</b> باچر، الساعة ${time}<br>بنذكّرك قبل الموعد بـ٣ ساعات. حياك الله.`,'accent phone-confirmation');
+  await phoneReply(run,`✅ <strong>تم تأكيد طلب الحجز</strong><br><b>الخدمة:</b> ${phoneScenario.service}<br><b>الموعد:</b> باچر، الساعة ${time}<br>بنذكّرك قبل الموعد بـ٣ ساعات. ${phoneScenario.customerWord}`,'accent phone-confirmation');
   phoneReplay.disabled=false;
 }
 
