@@ -1,6 +1,5 @@
 const vertical=new URLSearchParams(location.search).get('demo')==='salon'?'salon':'clinic';
 document.documentElement.dataset.vertical=vertical;
-document.querySelectorAll('[data-vertical]').forEach(link=>link.classList.toggle('active',link.dataset.vertical===vertical));
 
 const clinicConversations={
   smartBooking:[['user','أبي تنظيف اليوم بعد ٦، وكم السعر؟'],['answer','حياك الله 👋 فهمت إنك تبي موعد تنظيف اليوم بعد الساعة ٦، وتبي تعرف السعر.'],['answer','سعر تنظيف وتلميع الأسنان يبدأ من ٢٥ د.ك، والمدة نحو ٣٠ دقيقة.'],['answer','الأوقات المتاحة بعد ٦ اليوم: ٦:٣٠ م و٨:٠٠ م. أي وقت يناسبك؟']],
@@ -44,6 +43,7 @@ if(vertical==='salon'){
   if(cta){cta.href='https://wa.me/96567795155?text='+encodeURIComponent('مرحبًا، أرغب في تجربة BotLessAI لصالوني');cta.textContent='احجزي عرضًا تجريبيًا عبر واتساب';}
   document.querySelector('#phoneBusinessName').textContent='صالون BotLess التجريبي';
   document.querySelector('#phoneAvatar').textContent='ص';
+  document.querySelector('#audienceHeading').innerHTML='تجربة سهلة للعميلة.<br>وإدارة منظمة للصالون.';
 }
 const output=document.querySelector('#demoConversation');
 const demoButtons=[...document.querySelectorAll('[data-demo]')];
