@@ -6,6 +6,7 @@
   <meta name="description" content="يحوّل BotLessAI واتساب العيادة إلى موظف استقبال ذكي يعمل على مدار الساعة، ويجمع طلبات الحجز لتتم مراجعتها من فريقك.">
   <title>BotLessAI | استقبال واتساب للعيادات</title>
   <link rel="stylesheet" href="styles.css?v=vertical-demos1">
+  <link rel="stylesheet" href="demo.css?v=guided-experience1">
 </head>
 <body>
   <header class="nav wrap">
@@ -110,26 +111,62 @@
     </section>
 
     <section id="demo" class="section demo-section">
-      <div class="wrap demo-grid">
-        <div>
-          <p class="eyebrow">عرض تفاعلي</p>
-          <h2>محادثة طبيعية.<br>وفهم يتجاوز الكلمات.</h2>
-          <p class="lead compact">اختر أي سؤال وشاهد كيف يفهم موظف الاستقبال الذكي نية المريض، حتى عند جمع أكثر من طلب في رسالة واحدة.</p>
-          <div class="demo-prompts" role="group" aria-label="أسئلة العرض التجريبي">
-            <button data-demo="smartBooking">أبي تنظيف اليوم بعد ٦، وكم السعر؟</button>
-            <button data-demo="urgent">عندي ألم قوي، شنو أسوي؟</button>
-            <button data-demo="insurance">تقبلون التأمين؟</button>
-            <button data-demo="reschedule">أبي أغيّر موعدي</button>
-            <button data-demo="location">وين موقعكم ومتى تسكرون؟</button>
-            <button data-demo="services">شنو الخدمة المناسبة لي؟</button>
-            <button data-demo="booking">أبي أحجز موعد</button>
-          </div>
+      <div class="wrap">
+        <div class="section-head demo-heading">
+          <p class="eyebrow"><span></span> عرض تفاعلي</p>
+          <h2>جرّب رحلة عميل كاملة.<br>بأقل من ٣٠ ثانية.</h2>
+          <p class="lead compact">اختر نشاطك، وجرّب الرد الفوري والحجز والتحويل لموظفة الاستقبال مثل ما يشوفه عميلك بالضبط.</p>
         </div>
-        <div class="demo-card" aria-live="polite">
-          <div class="demo-status"><span></span><div><b>استقبال العيادة</b><small>متصل الآن · يرد عادةً خلال ثوانٍ</small></div><em class="sample-label">مثال تجريبي</em></div>
-          <div id="demoConversation" class="demo-conversation">
-            <p class="empty-chat">اختر سؤالًا لبدء المحادثة</p>
+
+        <div class="experience-shell" id="experienceShell">
+          <div class="experience-progress" aria-label="خطوات التجربة">
+            <span class="active">١ <b>ابدأ</b></span><i></i><span>٢ <b>اختر نشاطك</b></span><i></i><span>٣ <b>جرّب المحادثة</b></span>
           </div>
+
+          <section class="experience-screen welcome-screen active" data-screen="welcome" aria-labelledby="welcomeTitle">
+            <div class="welcome-orb" aria-hidden="true"><span>✦</span></div>
+            <p class="welcome-kicker">تجربة مباشرة · بدون تسجيل</p>
+            <h3 id="welcomeTitle">👋 أهلاً وسهلاً</h3>
+            <p>جرّب المساعد الذكي بنفسك.<br>اسأل أي سؤال مثل عملائك الحقيقيين.</p>
+            <button class="experience-primary" id="startExperience" type="button">ابدأ التجربة <span>←</span></button>
+            <small>تستغرق التجربة أقل من دقيقة</small>
+          </section>
+
+          <section class="experience-screen business-screen" data-screen="business" aria-labelledby="businessTitle">
+            <button class="experience-back" type="button" data-back="welcome">→ رجوع</button>
+            <p class="welcome-kicker">خلّنا نخصص التجربة لك</p>
+            <h3 id="businessTitle">شنو نوع نشاطك؟</h3>
+            <p>كل نشاط له مساعد وخدمات وأسئلة مختلفة.</p>
+            <div class="business-grid" id="businessGrid"></div>
+          </section>
+
+          <section class="experience-screen chat-screen" data-screen="chat" aria-labelledby="chatBusinessName">
+            <aside class="chat-context">
+              <button class="experience-back" type="button" data-back="business">→ غيّر النشاط</button>
+              <div class="context-brand"><span id="contextIcon"></span><div><small>أنت تجرّب</small><strong id="contextName"></strong></div></div>
+              <div class="context-facts">
+                <p><span>◷</span><b>ساعات العمل</b><small id="contextHours"></small></p>
+                <p><span>⌖</span><b>الموقع</b><small id="contextLocation"></small></p>
+                <p><span>✓</span><b>النتيجة</b><small>رد وحجز بدون انتظار</small></p>
+              </div>
+              <div class="value-meter"><span>رحلة التجربة</span><b id="journeyLabel">ابدأ بسؤال</b><i><em id="journeyProgress"></em></i></div>
+            </aside>
+
+            <div class="whatsapp-demo">
+              <header class="whatsapp-header">
+                <button type="button" data-back="business" aria-label="رجوع">‹</button>
+                <span class="business-avatar" id="chatAvatar"></span>
+                <div><strong id="chatBusinessName"></strong><small id="chatPresence">متصل الآن</small></div>
+                <b aria-hidden="true">⌕</b><b aria-hidden="true">⋮</b>
+              </header>
+              <div class="whatsapp-body" id="demoConversation" aria-live="polite"></div>
+              <div class="suggestion-wrap" id="suggestionWrap">
+                <small>جرّب سؤال جاهز</small>
+                <div class="quick-suggestions" id="quickSuggestions"></div>
+              </div>
+              <div class="whatsapp-compose"><button type="button" aria-label="إضافة">＋</button><div>اكتب رسالة <span>☺</span></div><button type="button" class="send-mic" aria-label="رسالة صوتية">●</button></div>
+            </div>
+          </section>
         </div>
       </div>
     </section>
